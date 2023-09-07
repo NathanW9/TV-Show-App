@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content%}
+    <h1>List of my Favorite Shows:</h1>
+    {% for show in show_list %}
+    <div>
+        <a href="/money_heist">{{ show }}</a>
+    </div>
+   {% endfor %}
+{% endblock %}
