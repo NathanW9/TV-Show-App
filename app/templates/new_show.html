@@ -1,6 +1,47 @@
 {% extends "base.html" %}
 
 {% block content%}
+
+    {% if show_title %}
+        <h1>{{ show_title }}</h1>
+        <h2>{{ date }}</h2>
+        <h2>{{ actor }}</h2>
+        <p>Description:</p>
+        <p>{{ description }}</p>
+
+    {% else %}
     <h1>Create New Show</h1>
-    <p>Page Under Construction</p>
+    <form action = "" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.show_title.label }}<br>
+            {{ form.show_title(size=36) }}<br>
+            {% for error in form.show_title.errors %}
+                <span style="...">[{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.date.label }}<br>
+            {{ form.date(size=36) }}<br>
+            {% for error in form.date.errors %}
+                <span style="...">[{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.actor.label }}<br>
+            {{ form.actor(size=36) }}<br>
+            {% for error in form.actor.errors %}
+                <span style="...">[{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.description.label }}<br>
+            {{ form.description(size=36) }}<br>
+            {% for error in form.description.errors %}
+                <span style="...">[{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    {% endif %}
 {% endblock %}

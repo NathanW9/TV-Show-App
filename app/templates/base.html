@@ -9,8 +9,14 @@
     <body>
         <div>
             <a href="{{ url_for('main') }}">Home:</a>
+            {% if current_user.is_anonymous %}
+                <a href="{{ url_for('show_list') }}">TV Shows</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
             <a href="{{ url_for('show_list') }}">TV Shows</a>
             <a href="{{ url_for('new_show') }}"> New Show</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
         </div>
         <hr>
             {% with messages = get_flashed_messages() %}

@@ -4,7 +4,7 @@
     <h1>List of my Favorite Shows:</h1>
     {% for show in show_list %}
     <div>
-        <a href="/money_heist">{{ show }}</a>
+        <a href="{{ url_for('show', title=show.title) }}">{{ show.title }}</a>
     </div>
    {% endfor %}
 {% endblock %}

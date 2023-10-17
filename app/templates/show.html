@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content%}
+    <h1>{{ title }}</h1>
+    <h3>{{ date }}</h3>
+    <h3>Description:</h3>
+    <p>{{ description }}</p>
+    <h3>Actors:</h3>
+    {% for act in a2s %}
+        <li>{{ act.firstname }} {{ act.lastname }}</li>
+    {% endfor %}
+    <h3>Producers:</h3>
+    {% for pro in p2s %}
+        <li>{{ pro.firstname }} {{ pro.lastname }}</li>
+    {% endfor %}
+{% endblock %}
