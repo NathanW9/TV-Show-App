@@ -14,7 +14,9 @@
             <a href="{{ url_for('login') }}">Login</a>
             {% else %}
             <a href="{{ url_for('show_list') }}">TV Shows</a>
-            <a href="{{ url_for('new_show') }}"> New Show</a>
+            <a href="{{ url_for('new_show') }}">New Show</a>
+                <a href="{{ url_for('new_actor') }}">New Actor</a>
+                <a href="{{ url_for('new_producer') }}">New Producer</a>
                 <a href="{{ url_for('logout') }}">Logout</a>
             {% endif %}
         </div>

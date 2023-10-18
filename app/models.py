@@ -11,7 +11,7 @@ from app import db, login
 class Show(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64), index=True, unique=True)
-    date = db.Column(db.String(120), index=True, unique=True)
+    date = db.Column(db.DateTime, index=True, unique=True)
     description = db.Column(db.String(120), index=True, unique=True)
     a2s = db.relationship('ActorToShow', backref='Show', lazy='dynamic')
     p2s = db.relationship('ProducerToShow', backref='Show', lazy='dynamic')
@@ -30,13 +30,14 @@ class Actor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(120), index=True)
     lastname = db.Column(db.String(120), index=True)
-    age = db.Column(db.Integer)
+    age = db.Column(db.DateTime)
     a2s = db.relationship('ActorToShow', backref='Actor', lazy='dynamic')
 
 class Producer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(120), index=True)
     lastname = db.Column(db.String(120), index=True)
+    age = db.Column(db.DateTime)
     p2s = db.relationship('ProducerToShow', backref='Producer', lazy='dynamic')
 
 @login.user_loader

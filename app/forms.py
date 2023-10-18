@@ -1,16 +1,31 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField, TextAreaField
+from flask_wtf.recaptcha import widgets
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, TextAreaField, DateField, SelectMultipleField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
-from app.models import User
-
+from app.models import User, Show, Actor, Producer
 
 
 class NewShowForm(FlaskForm):
     show_title = StringField('Show Title', validators=[DataRequired()])
-    date = StringField('Date')
-    actor = StringField('Actor')
+    date = DateField('Date')
+    actors = SelectMultipleField('Select Shows', coerce=int, choices=[])
+    producers = SelectMultipleField('Select Shows', coerce=int, choices=[])
     description = StringField('Description')
     submit = SubmitField('Create New Show')
+
+class NewActorForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    age = DateField('Birthdate', validators=[DataRequired()])
+    shows = SelectMultipleField('Select Shows', coerce=int, choices=[])
+    submit = SubmitField('Create New Actor')
+
+class NewProducerForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    age = DateField('Birthdate', validators=[DataRequired()])
+    shows = SelectMultipleField('Select Shows', coerce=int, choices=[])
+    submit = SubmitField('Create New Producer')
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
