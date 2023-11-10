@@ -28,8 +28,8 @@ def show_list():
 @app.route('/show/<title>')
 def show(title):
     show = Show.query.filter_by(title=title).first_or_404()
-    return render_template("show.html", show=show, title=show.title, date=show.date,
-                           a2s=show.a2s, p2s=show.p2s, description=show.description)
+    print(show, show.title, show.a2s[0], show.a2s[0].Actor.firstname)
+    return render_template("show.html", show=show)
 
 
 @app.route('/new_show', methods=['GET', 'POST'])
@@ -47,14 +47,14 @@ def new_show():
         for actor_id in form.actors.data:
             actor = Actor.query.get(actor_id)
             if actor:
-                show.a2s.append(ActorToShow(actor=actor))
+                show.a2s.append(ActorToShow(actor_id=actor_id))
             else:
                 flash("Invalid actor selected")
 
         for producer_id in form.producers.data:
             producer = Producer.query.get(producer_id)
             if producer:
-                show.p2s.append(ProducerToShow(producer=producer))
+                show.p2s.append(ProducerToShow(producer_id=producer_id))
             else:
                 flash("Invalid producer selected")
         db.session.commit()
@@ -71,13 +71,13 @@ def new_actor():
     form.shows.choices = [(s.id, s.title) for s in Show.query.all()]
 
     if request.method == 'POST' and form.validate_on_submit():
-        actor = Actor(first_name=form.first_name.data, last_name=form.last_name.data,
+        actor = Actor(firstname=form.first_name.data, lastname=form.last_name.data,
                         age=form.age.data)
         db.session.add(actor)
         for show_id in form.shows.data:
             show = Show.query.get(show_id)
             if show:
-                actor.a2s.append(ActorToShow(show=show))
+                actor.a2s.append(ActorToShow(actor_id=actor.id, show_id=show.id))
             else:
                 flash("Invalid actor selected")
         db.session.add(actor)
@@ -95,13 +95,13 @@ def new_producer():
     form.shows.choices = [(s.id, s.title) for s in Show.query.all()]
 
     if request.method == 'POST' and form.validate_on_submit():
-        producer = Producer(first_name=form.first_name.data, last_name=form.last_name.data,
+        producer = Producer(firstname=form.first_name.data, lastname=form.last_name.data,
                       age=form.age.data)
         db.session.add(producer)
         for show_id in form.shows.data:
             show = Show.query.get(show_id)
             if show:
-                producer.p2s.append(ProducerToShow(show=show))
+                producer.p2s.append(ProducerToShow(producer_id=producer.id, show_id=show.id))
             else:
                 flash("Invalid actor selected")
         db.session.add(producer)
@@ -168,8 +168,24 @@ def reset_db():
     db.session.add(a1s1)
     db.session.commit()
 
-    p1s1 = ActorToShow(producer_id=p1.id, show_id=s1.id)
+    a2s2 = ActorToShow(actor_id=a2.id, show_id=s2.id)
+    db.session.add(a2s2)
+    db.session.commit()
+
+    a3s3 = ActorToShow(actor_id=a3.id, show_id=s3.id)
+    db.session.add(a3s3)
+    db.session.commit()
+
+    p1s1 = ProducerToShow(producer_id=p1.id, show_id=s1.id)
     db.session.add(p1s1)
+    db.session.commit()
+
+    p2s2 = ProducerToShow(producer_id=p2.id, show_id=s2.id)
+    db.session.add(p2s2)
+    db.session.commit()
+
+    p3s3 = ProducerToShow(producer_id=p3.id, show_id=s3.id)
+    db.session.add(p3s3)
     db.session.commit()
 
     return render_template("main.html")
@@ -216,4 +232,13 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/404')
+def notFound():
+    return render_template("404.html")
+
+@app.route('/500')
+def unexpectedError():
+    return render_template("500.html")
+
 

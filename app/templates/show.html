@@ -1,17 +1,32 @@
 {% extends "base.html" %}
 
-{% block content%}
-    <h1>{{ title }}</h1>
-    <h3>{{ date }}</h3>
-{#    <h3>Actors:</h3>#}
-{#    {% for act in a2s %}#}
-{#        <li>{{ act.firstname }} {{ act.lastname }}</li>#}
-{#    {% endfor %}#}
-{#    <h3>Producers:</h3>#}
-{#    {% for pro in p2s %}#}
-{#        <li>{{ pro.firstname }} {{ pro.lastname }}</li>#}
-{#    {% endfor %}#}
+{% block app_content%}
+    <div>
+    <h1>{{ show.title }}</h1>
+    </div>
+    <div>
+    <h3>{{ show.date.strftime('%B %d, %Y') }}</h3>
+    </div>
+    <div>
+    <h3>Actors:</h3>
+    </div>
+    {% for a2s in show.a2s %}
+        <div>
+        <li>{{ a2s.Actor.firstname }} {{ a2s.Actor.lastname }}</li>
+        </div>
+    {% endfor %}
+    <div>
+    <h3>Producers:</h3>
+    </div>
+    {% for p2s in show.p2s %}
+        <div>
+        <li>{{ p2s.Producer.firstname }} {{ p2s.Producer.lastname }}</li>
+        </div>
+    {% endfor %}
+    <div>
     <h3>Description:</h3>
-    <p>{{ description }}</p>
-
+    </div>`
+    <div>
+    <p>{{ show.description }}</p>
+    </div>
 {% endblock %}

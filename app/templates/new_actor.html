@@ -1,37 +1,46 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-{% block content%}
+{% block app_content %}
     <h1>Create New Actor</h1>
-    <form action = "" method="POST" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.first_name.label }}<br>
-            {{ form.first_name(size=36) }}<br>
-            {% for error in form.first_name.errors %}
-                <span style="...">[{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.last_name.label }}<br>
-            {{ form.last_name(size=36) }}<br>
-            {% for error in form.last_name.errors %}
-                <span style="...">[{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.date.label }}<br>
-            {{ form.date(size=36) }}<br>
-            {% for error in form.date.errors %}
-                <span style="...">[{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.shows.label }}<br>
-            {{ form.shows(size=36) }}<br>
-            {% for error in form.shows.errors %}
-                <span style="...">[{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+
+{#{% block content%}#}
+{#    <h1>Create New Actor</h1>#}
+{#    <form action = "" method="POST" novalidate>#}
+{#        {{ form.hidden_tag() }}#}
+{#        <p>#}
+{#            {{ form.first_name.label }}<br>#}
+{#            {{ form.first_name(size=36) }}<br>#}
+{#            {% for error in form.first_name.errors %}#}
+{#                <span style="...">[{{ error }}</span>#}
+{#            {% endfor %}#}
+{#        </p>#}
+{#        <p>#}
+{#            {{ form.last_name.label }}<br>#}
+{#            {{ form.last_name(size=36) }}<br>#}
+{#            {% for error in form.last_name.errors %}#}
+{#                <span style="...">[{{ error }}</span>#}
+{#            {% endfor %}#}
+{#        </p>#}
+{#        <p>#}
+{#            {{ form.age.label }}<br>#}
+{#            {{ form.age(size=36) }}<br>#}
+{#            {% for error in form.age.errors %}#}
+{#                <span style="...">[{{ error }}</span>#}
+{#            {% endfor %}#}
+{#        </p>#}
+{#        <p>#}
+{#            {{ form.shows.label }}<br>#}
+{#            {{ form.shows(size=36) }}<br>#}
+{#            {% for error in form.shows.errors %}#}
+{#                <span style="...">[{{ error }}</span>#}
+{#            {% endfor %}#}
+{#        </p>#}
+{#        <p>{{ form.submit() }}</p>#}
+{#    </form>#}
 {% endblock %}

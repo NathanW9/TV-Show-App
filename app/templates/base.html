@@ -1,35 +1,53 @@
-<html>
-    <head>
+{% extends 'bootstrap/base.html' %}
+
+{% block title%}
         {% if title %}
-            <title>{{ title }}</title>
+            <title>{{ title }} - TV Show</title>
         {% else %}
             <title>Welcome to TvShow</title>
         {% endif %}
-    </head>
-    <body>
-        <div>
-            <a href="{{ url_for('main') }}">Home:</a>
+{% endblock %}
+
+{% block navbar %}
+        <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="{{ url_for('main') }}">Home</a>
+            </div>
             {% if current_user.is_anonymous %}
-                <a href="{{ url_for('show_list') }}">TV Shows</a>
-            <a href="{{ url_for('login') }}">Login</a>
+                <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('show_list') }}">TV Shows</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
             {% else %}
-            <a href="{{ url_for('show_list') }}">TV Shows</a>
-            <a href="{{ url_for('new_show') }}">New Show</a>
-                <a href="{{ url_for('new_actor') }}">New Actor</a>
-                <a href="{{ url_for('new_producer') }}">New Producer</a>
-                <a href="{{ url_for('logout') }}">Logout</a>
+                <ul class="nav navbar-nav">
+            <li><a href="{{ url_for('show_list') }}">TV Shows</a></li>
+            <li><a href="{{ url_for('new_show') }}">New Show</a></li>
+                <li><a href="{{ url_for('new_actor') }}">New Actor</a></li>
+                <li><a href="{{ url_for('new_producer') }}">New Producer</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                </ul>
             {% endif %}
         </div>
-        <hr>
+    </nav>
+        {% endblock %}
+
+        {% block content %}
+        </div class="container">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul>
                     {% for message in messages %}
-                        <li>{{ message }}</li>
+                        <div class=" alert alert-info" role="alert">{{ message }}</div>
                     {% endfor %}
                 </ul>
             {% endif %}
             {% endwith %}
-            {% block content %}{% endblock %}
-    </body>
-</html>
+
+            {% block app_content %}{% endblock %}
+            </div>
+{% endblock %}

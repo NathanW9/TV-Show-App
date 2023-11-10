@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 
-{% block content%}
+{% block app_content%}
+    <div class="well well-sm">
     <h1>List of my Favorite Shows:</h1>
+    </div>
     {% for show in show_list %}
     <div>
-        <a href="{{ url_for('show', title=show.title) }}">{{ show.title }}</a>
+        <a class="btn-default btn-lg" href="{{ url_for('show', title=show.title) }}">{{ show.title }}</a>
+        <p><br></p>
     </div>
    {% endfor %}
 {% endblock %}
